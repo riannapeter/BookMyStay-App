@@ -1,11 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+/**
+ * Use Case 2: Room Initialization
+ * Demonstrates abstraction, inheritance, and static availability.
+ *
+ * @author Rianna
+ * @version 2.1
+ */
+
+// Abstract class
+abstract class Room {
+    protected String roomType;
+    protected int beds;
+    protected double price;
+
+    // Constructor
+    public Room(String roomType, int beds, double price) {
+        this.roomType = roomType;
+        this.beds = beds;
+        this.price = price;
+    }
+
+    // Method to display room details
+    public void displayDetails() {
+        System.out.println("Room Type: " + roomType);
+        System.out.println("Beds: " + beds);
+        System.out.println("Price per night: ₹" + price);
+    }
+}
+
+// Single Room class
+class SingleRoom extends Room {
+    public SingleRoom() {
+        super("Single Room", 1, 2000);
+    }
+}
+
+// Double Room class
+class DoubleRoom extends Room {
+    public DoubleRoom() {
+        super("Double Room", 2, 3500);
+    }
+}
+
+// Suite Room class
+class SuiteRoom extends Room {
+    public SuiteRoom() {
+        super("Suite Room", 3, 6000);
+    }
+}
+
+// Main class
+public class UseCase2RoomInitialization {
+
+    public static void main(String[] args) {
+
+        System.out.println("======================================");
+        System.out.println("   Welcome to Book My Stay App");
+        System.out.println("   Hotel Booking System v2.1");
+        System.out.println("======================================\n");
+
+        // Create room objects (Polymorphism)
+        Room single = new SingleRoom();
+        Room doub = new DoubleRoom();
+        Room suite = new SuiteRoom();
+
+        // Static availability variables
+        int singleAvailable = 5;
+        int doubleAvailable = 3;
+        int suiteAvailable = 2;
+
+        // Display details
+        System.out.println("----- Room Details -----\n");
+
+        single.displayDetails();
+        System.out.println("Available: " + singleAvailable + "\n");
+
+        doub.displayDetails();
+        System.out.println("Available: " + doubleAvailable + "\n");
+
+        suite.displayDetails();
+        System.out.println("Available: " + suiteAvailable + "\n");
+    }
+}
