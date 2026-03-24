@@ -1,11 +1,122 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+/**
+ * Use Case 7: Add-On Service Selection
+ * Demonstrates attaching optional services to reservations using Map + List.
+ *
+ * @author Rianna
+ * @version 7.1
+ */
+
+import java.util.*;
+
+// -------------------- SERVICE (ADD-ON) --------------------
+class AddOnService {
+    private String serviceName;
+    private double price;
+
+    public AddOnService(String serviceName, double price) {
+        this.serviceName = serviceName;
+        this.price = price;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void display() {
+        System.out.println(serviceName + " - ₹" + price);
+    }
+}
+
+// -------------------- SERVICE MANAGER --------------------
+class AddOnServiceManager {
+
+    // Map: Reservation ID → List of Services
+    private Map<String, List<AddOnService>> serviceMap;
+
+    public AddOnServiceManager() {
+        serviceMap = new HashMap<>();
+    }
+
+    // Add service to a reservation
+    public void addService(String reservationId, AddOnService service) {
+
+        serviceMap
+            .computeIfAbsent(reservationId, k -> new ArrayList<>())
+            .add(service);
+
+        System.out.println("Added service '" + service.getServiceName()
+                + "' to Reservation ID: " + reservationId);
+    }
+
+    // Display services for a reservation
+    public void displayServices(String reservationId) {
+
+        System.out.println("\n--- Services for Reservation: " + reservationId + " ---");
+
+        List<AddOnService> services = serviceMap.get(reservationId);
+
+        if (services == null || services.isEmpty()) {
+            System.out.println("No services selected.");
+            return;
+        }
+
+        for (AddOnService s : services) {
+            s.display();
+        }
+    }
+
+    // Calculate total cost of services
+    public double calculateTotalCost(String reservationId) {
+
+        List<AddOnService> services = serviceMap.get(reservationId);
+
+        if (services == null) return 0;
+
+        double total = 0;
+        for (AddOnService s : services) {
+            total += s.getPrice();
+        }
+
+        return total;
+    }
+}
+
+// -------------------- MAIN --------------------
+public class UseCase7AddOnServiceSelection {
+
+    public static void main(String[] args) {
+
+        System.out.println("======================================");
+        System.out.println("   Welcome to Book My Stay App");
+        System.out.println("   Hotel Booking System v7.1");
+        System.out.println("======================================\n");
+
+        // Assume reservation already exists (from Use Case 6)
+        String reservationId = "SR-12345";
+
+        // Initialize service manager
+        AddOnServiceManager manager = new AddOnServiceManager();
+
+        // Create services
+        AddOnService breakfast = new AddOnService("Breakfast", 500);
+        AddOnService spa = new AddOnService("Spa Access", 1500);
+        AddOnService airportPickup = new AddOnService("Airport Pickup", 800);
+
+        // Guest selects services
+        manager.addService(reservationId, breakfast);
+        manager.addService(reservationId, spa);
+        manager.addService(reservationId, airportPickup);
+
+        // Display selected services
+        manager.displayServices(reservationId);
+
+        // Calculate total add-on cost
+        double total = manager.calculateTotalCost(reservationId);
+
+        System.out.println("\nTotal Add-On Cost: ₹" + total);
+    }
+}
