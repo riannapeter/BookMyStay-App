@@ -1,11 +1,73 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+/**
+ * Use Case 3: Centralized Room Inventory Management
+ * Demonstrates use of HashMap for managing room availability.
+ *
+ * @author Rianna
+ * @version 3.1
+ */
+
+import java.util.HashMap;
+import java.util.Map;
+
+// Inventory class (Single Source of Truth)
+class RoomInventory {
+
+    private HashMap<String, Integer> inventory;
+
+    // Constructor initializes inventory
+    public RoomInventory() {
+        inventory = new HashMap<>();
+
+        // Initial room availability
+        inventory.put("Single Room", 5);
+        inventory.put("Double Room", 3);
+        inventory.put("Suite Room", 2);
+    }
+
+    // Get availability of a specific room type
+    public int getAvailability(String roomType) {
+        return inventory.getOrDefault(roomType, 0);
+    }
+
+    // Update availability (controlled modification)
+    public void updateAvailability(String roomType, int count) {
+        if (inventory.containsKey(roomType)) {
+            inventory.put(roomType, count);
+        } else {
+            System.out.println("Room type not found: " + roomType);
+        }
+    }
+
+    // Display entire inventory
+    public void displayInventory() {
+        System.out.println("----- Current Room Inventory -----");
+        for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+            System.out.println(entry.getKey() + " → Available: " + entry.getValue());
+        }
+    }
+}
+
+// Main class
+public class UseCase3InventorySetup {
+
+    public static void main(String[] args) {
+
+        System.out.println("======================================");
+        System.out.println("   Welcome to Book My Stay App");
+        System.out.println("   Hotel Booking System v3.1");
+        System.out.println("======================================\n");
+
+        // Initialize inventory
+        RoomInventory inventory = new RoomInventory();
+
+        // Display current inventory
+        inventory.displayInventory();
+
+        // Example: Update availability
+        System.out.println("\nUpdating Single Room availability...\n");
+        inventory.updateAvailability("Single Room", 4);
+
+        // Display updated inventory
+        inventory.displayInventory();
+    }
+}
