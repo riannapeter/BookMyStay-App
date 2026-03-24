@@ -1,25 +1,11 @@
-/**
- * Hotel Booking Management System
- * Entry point of the application.
- * Displays welcome message with application name and version.
- *
- * @author Rianna
- * @version 1.0
- */
-public class UseCase1HotelBookingApp {
-
-    /**
-     * Main method - starting point of the program
-     * @param args command line arguments
-     */
-    public static void main(String[] args) {
-
-        // Display welcome message
-        System.out.println("======================================");
-        System.out.println("   Welcome to Book My Stay App");
-        System.out.println("   Hotel Booking System v1.0");
-        System.out.println("======================================");
-
-        // Program ends here
-    }
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
